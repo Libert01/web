@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网页切片练习</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;;
+            background-color: #351A0A;
+            margin: 0 ;
+            padding:  0;
+        }
+        div,h1,p {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 900px;
+            margin: 0 auto;
+        }
+        .head {
+            height: 110px;
+            overflow: hidden;
+        }
+        .nav {
+            width: 380px;
+            height: 36px;
+            background: #f4eee0;
+            border-radius: 0 0 12px 12px;
+            float: right;
+            margin-right: 12px;
+            font-size:  12px;
+            font-weight: bold;
+        }
+        .nav:before,
+        .nav:after {
+            content: "";
+            clear: both;
+        }
+        .brand {
+            float: left;
+            width: 310px;
+            margin-left: 20px;
+            color: #f4eee0;
+            text-align: right;
+        }
+        .brand:after {
+            content: "";
+            clear: both;
+        }
+        .brand h1 {
+            padding-top: 23px;
+        }
+        .brand p {
+            color: #666;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .nav ul {
+            list-style-type: none;
+            overflow: hidden;
+            text-align: left;
+            margin: 7px 0 7px 20px;;
+            padding: 0;
+        }
+        .nav ul li {
+            float: left;
+            margin-right: 10px;
+        }
+        .nav ul li a{
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 4px 8px;
+        }
+        .nav ul li a:hover,
+        .nav ul li a:active {
+            background: #a50000;
+            border-radius: 4px;
+            color: #eee;
+        }
+
+        .content {
+            background: #fff;
+            width: 100%;
+            height: 680px;
+            border-radius: 0 0 20px 20px;
+        }
+        .content_first {
+            background: #f4eee0;
+            width: 860px;
+            height: 190px;
+            padding: 32px 20px;
+        }
+        .content_first img {
+            float: left;
+        }
+        .content_first img:hover {
+            opacity: .7;
+            filter: alpha(opacity=70);
+        }
+        .first_left,
+        .first_right {
+            float: left;
+        }
+        .first_left:after,
+        .first_right:after {
+            content: "";
+            clear: both;
+        }
+        .first_left{
+            width: 280px;
+        }
+        .first_left_one {
+            height: 55px;
+            margin-bottom: 20px;
+        }
+        .first_left_one:last-child {
+            margin-bottom: 0;;
+        }
+        .first_left_one p {
+            width: 200px;
+            background: #FFF80F;
+            font-size: 12px;
+            margin-left: 60px;
+            padding-bottom: 5px;
+        }
+        .first_left_one p a {
+            color: #000;
+            text-decoration: none;
+        }
+        .first_left_one p a:hover {
+            color: #b92c28;
+        }
+        .first_right img {
+            padding-left: 30px;
+        }
+        .clear {
+            clear: both;
+        }
+        .content_second {
+            width: 860px;
+            padding: 0 20px;
+            position: relative;
+        }
+        .second_left:after,
+        .second_right:after {
+            content: "";
+            clear: both;
+        }
+        .second_left {
+            width: 280px;
+            position: absolute;
+            left: 0;
+            margin-left: 20px;
+        }
+        .second_right {
+            width: 565px;
+            margin-left: 15px;
+            position: absolute;
+            right: 0;
+            margin-right: 20px;
+        }
+        .second_left h2 {
+            margin: 0;
+            background: #7E0000;
+            color: #fff;
+            font-size: 22px;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+        }
+        .content_second p {
+            color: #785677;
+            padding: 0 18px;
+            margin: 20px 0;
+            font-size: 14px;
+            white-space: normal;
+        }
+        .second_left span {
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+            display: block;
+            margin-right: 15px;
+        }
+        .side {
+            background: #f4eee0;
+            border: 1px solid #ccc;
+            margin-top: 30px;
+            padding: 10px 50px 10px 10px;
+        }
+        .side h1 {
+            font-size: 22px;
+        }
+        .side p {
+            padding: 0;
+            margin: 0;
+        }
+        .second_right h1 {
+            font-size: 24px;
+        }
+        .second_right p {
+            padding: 0;
+            margin: 10px 0;
+        }
+        .more {
+            display: block;
+            float: right;
+            background: url(images/learn.jpg) no-repeat;
+            width: 100px;
+            height: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 12px;
+            line-height: 20px;
+            padding-left: 3px;
+        }
+        .more:hover {
+            background: url(images/learn_over.jpg) no-repeat;
+        }
+        .more:after {
+            content: "";
+            clear: both;
+        }
+        .project {
+            background: #f4eee0;
+            border: 1px solid #ccc;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            padding: 16px;
+            height: 56px;
+        }
+        .project_box {
+            float: left;
+            margin-right: 15px;
+            width: 160px;
+        }
+        .project_box img {
+            border: 1px solid red;
+            margin-right: 6px;
+            position: absolute;
+            width: 53px;
+            height: 53px;
+        }
+        .project_box p {
+            width: 102px;
+            height: 53px;
+            margin: 0 ;
+            padding-left: 60px;
+            overflow: hidden;
+        }
+
+        .footer p{
+            color: #827b5e;
+            font-size: 12px;
+            margin-left: 30px;
+            display: inline;
+        }
+        .footer img {
+            float: right;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!--头部导航及名称------->
+    <div class="head">
+        <div class="nav">
+            <ul>
+                <li><a href="" title="">Home</a></li>
+                <li><a href="" title="">Servicess</a></li>
+                <li><a href="" title="">Protfolio</a></li>
+                <li><a href="" title="">Blog</a></li>
+                <li><a href="" title="">About us</a></li>
+            </ul>
+        </div>
+        <div class="brand">
+            <h1>Enviromental Brand</h1>
+            <p>You Company Tagline Here</p>
+        </div>
+    </div>
+
+    <!----内容开始----------------->
+    <div class="content">
+        <div class="content_first">
+            <div class="first_left">
+                <div class="first_left_one">
+                    <img src="images/img-2.gif" />
+                    <p>
+                        <b><a href="" title="">Brigtht Ideals</a></b>
+                        One of our services is our birght bideas and details.
+                    </p>
+                </div>
+                <div class="first_left_one">
+                    <img src="images/img-3.gif" />
+                    <p>
+                        <b><a  href="" title="">Project Quote</a></b>
+                        We provide you with a detailed price quote.
+                    </p>
+                </div>
+                <div class="first_left_one">
+                    <img src="images/img-6.gif" />
+                    <p>
+                        <b><a  href="" title="">Environment </a></b>
+                        We care about the environment and our projects.
+                    </p>
+                </div>
+            </div>
+            <div class="first_right">
+                <img src="images/img-4.gif" />
+            </div>
+        </div>
+
+        <div class="content_second">
+            <div class="second_left">
+                <h2>CLIENT TESTIMONIALS</h2>
+                <p>"Best services ever! i'd be lost widthout your company your and we look forward to dealing with you in the future</p>
+                <p>I would recommend your great services to anyone I appreciate all your help and passion for the environment"</p>
+                <span>-Potential Client Testimonial</span>
+                <div class="side">
+                    <h1>Nice Little Sidebar</h1>
+                    <p>This is where you can put some services text fillers The more you put the better df</p>
+                </div>
+            </div>
+            <div class="second_right">
+                <h1>Leader in E-Commerce Solutions</h1>
+                <p>We are an eco based web and logo design company Our main focus is woking with companies that are green friendly We
+                    specialize in getting businesses onto the internet quickly and professionally From custom logo identity to fully
+                    branded web and print we can take your business to success!
+                </p>
+                <p>
+                    This area is where your intro test can go and this is what your text links will look like
+                </p>
+                <hr />
+                <h1>Our Amazing Team</h1>
+                <p>
+                    We specialize getting businesses onto the Internet quickly and professionally As a one stop provider you will find
+                    it easier than ever to gain the strong web presince every modem business require. from to brand developmnet
+                </p>
+                <a href="" class="more">LEARN MORE</a>
+                <div class="project">
+                    <div class="project_box">
+                        <img src="images/img-6.gif" />
+                        <p>We are great to work with on projects.</p>
+                    </div>
+                    <div class="project_box">
+                        <img src="images/img-2.gif" />
+                        <p>We have great ideas that will benefit you.</p>
+                    </div>
+                    <div class="project_box">
+                        <img src="images/img-3.gif" />
+                        <p>We care about the environment a lot.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-----底部开始----------------------->
+    <div class="footer">
+        <p>Copy right @2008 Your Company Name Home Services Portfolio Blog Eco Web Design By Studio7designs</p>
+        <img src="images/img-5.jpg" alt="" />
+    </div>
+
+</div>
+
+</body>
+</html>
