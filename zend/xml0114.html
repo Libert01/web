@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>显示</button>
+<div>
+
+</div>
+<script>
+    function resul(n){
+        return Math.round(Math.random()*n);
+    }
+
+    document.getElementsByTagName("button")[0].onclick = function(){
+        var s = "<xml>";
+
+        for(var i=1; i<11; i++){
+            s += "<person id='" + i + "' name='姓名"+ i + "' sex='" + resul(1) + "' age='" + resul(100) + "' txt='描述" + i + "'/>";
+        }
+
+        s += "</xml>";
+
+        var xmldoc = new DOMParser().parseFromString(s, 'text/xml');
+        var persons = xmldoc.getElementsByTagName('person');
+
+        var tab = "<table>";
+        tab += "<tr>";
+        tab += "<th>id</th> <th>姓名</th> <th>性别</th> <th>年龄</th> <th>描述</th>";
+        tab += "</tr>";
+
+        for(var j = 0;j<persons.length; j++){
+            tab += "<tr>";
+            tab += "<td>" + persons[j].getAttribute("id") + "</td>";
+            tab += "<td>" + persons[j].getAttribute("name") + "</td>";
+            tab += "<td>" + (persons[j].getAttribute("sex")==1?"男":"女") + "</td>";
+            tab += "<td>" + persons[j].getAttribute("age") + "</td>";
+            tab += "<td>" + persons[j].getAttribute("txt") + "</td>";
+            tab += "</tr>"
+        }
+        
+        tab += "</table>";
+        
+        document.getElementsByTagName("div")[0].innerHTML = tab;
+    };
+</script>
+</body>
+</html>
