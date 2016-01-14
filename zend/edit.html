@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <label for="name">姓名</label>
+    <input id="name" />
+    <br /><br />
+
+    <input type="radio" name="sex" id="man" value="0"/>
+    <label for="man">男</label>
+
+    <input type="radio" name="sex" id="women" value="1"/>
+    <label for="women">女</label>
+    <br /><br />
+
+    <label for="age">年龄</label>
+    <select id="age">
+        <script>
+            var opt = "";
+            for(var i=1;i<101;i++){
+                opt += "<option>" + i + "</option>";
+            }
+            document.write(opt);
+        </script>
+    </select>
+    <br /><br />
+
+    <label for="txt">描述</label>
+    <textarea id="txt" cols="25" rows="5">
+
+    </textarea>
+    <br /><br />
+
+    <button id="sure">确定</button>
+    <button id="cancel">取消</button>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 600px;
+            margin: 0 auto;
+        }
+        table {
+            border-collapse: collapse;
+
+        }
+        table th {
+            background: orangered;
+            color: #fff;
+        }
+        table td {
+            padding-left: 10px;
+        }
+        table td,
+        table th {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid orangered;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var addbtn = document.getElementById("add");
+            var delbtn = document.getElementById("del");
+
+            var tab = document.getElementsByTagName("tbody")[0];
+            var trs = tab.getElementsByTagName("tr");
+
+            //点击按钮添加行
+            addbtn.onclick = function(){
+                var obj = function(){
+                    return  showModalDialog("edit.html",false,"dialogWidth:400px;dialogHeight=600px;")
+                };
+                if(!obj){
+                    return;
+                }
+                //创建行
+                var ctr = document.createElement("tr");
+                //创建列1
+                var ctd1 = document.createElement("td");
+                    ctd1.innerHTML = "lan";
+                ctr.appendChild(ctd1);
+
+                //创建列2
+                var ctd2 = document.createElement("td");
+                ctd2.innerHTML = "man";
+                ctr.appendChild(ctd2);
+
+                //创建列3
+                var ctd3 = document.createElement("td");
+                ctd3.innerHTML = 43;
+                ctr.appendChild(ctd3);
+
+                //创建列4
+                var ctd4 = document.createElement("td");
+                ctd4.innerHTML = "linux";
+                ctr.appendChild(ctd4);
+
+                //创建列5
+                var ctd5 = document.createElement("td");
+                ctd5.innerHTML = "<a href='javascript: ' name='set'>修改 | <a href= 'javascript: ' name='remove'>删除</a> ";
+                ctr.appendChild(ctd5);
+
+                //把行添加到表格
+                tab.appendChild(ctr);
+
+
+                // 点击删除 删除行
+                var arra = tab.getElementsByName("remove");
+                alert(arra.length);
+                for(var i=0; i<arra.length; i++){
+                    arra[i].onclick = function(){
+                        tab.removeChild(this.parentNode.parentNode);
+                    }
+                }
+            };
+
+            //点击按钮删除最后一行
+            delbtn.onclick = function(){
+               // var trs = tab.getElementsByTagName("tr");
+                if(confirm("are you sure delete the last tr")){
+                    tab.removeChild(trs[trs.length-1]);
+                }
+            };
+
+
+            var sortbtn = document.getElementById("sort");
+            var schtext = document.getElementById("seartext");
+            var schbtn = document.getElementById("sch");
+
+        }
+    </script>
+</head>
+<body>
+<div >
+    <button id="add">新增</button>
+    <button id="del">删除</button>
+    <button id="sort">排序</button>
+    <label for="seartext"></label><input type="text" id = "seartext">
+    <button id="sch">搜索</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>描述</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
