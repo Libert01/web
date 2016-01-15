@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多个物体运动</title>
+    <style>
+        div {
+            width: 200px;
+            height: 100px;
+            background: red;
+            margin: 10px;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var odiv = document.getElementsByTagName("div");
+            for(var i=0; i<odiv.length; i++){
+                odiv[i].onmouseover = function(){
+                    move(this,500)
+                };
+                odiv[i].onmouseout = function(){
+                    move(this,200)
+                };
+            }
+        };
+
+        var timer = null;
+        function move(obj,end){
+            clearInterval(obj.timer);
+
+            obj.timer = setInterval(function(){
+                var speed = (end - obj.offsetWidth )/6;
+                speed = speed > 0 ? Math.ceil(speed): Math.floor(speed);
+
+                if(obj.offsetWidth == end ){
+                    clearInterval(obj.timer);
+                } else {
+                    obj.style.width = obj.offsetWidth + speed + "px";
+                }
+            },30);
+        }
+    </script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

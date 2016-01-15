@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>排序</title>
+    <script>
+        window.onload = function(){
+            var btn = document.getElementsByTagName("button")[0];
+            btn.onclick = function(){
+                //弹出输入输入框
+                var n = prompt("请输入数字n");
+                //判断数字n是否大于0，不是重新输入
+                while(parseInt(n)<=0 || isNaN(n)){
+                    n = prompt("你丫输错了，请输入数字n");
+                }
+
+                //弹出输入输入框
+                var arr = [];
+                for(var i=0;i<n; i++){
+                    arr[i] = prompt("请输入第" + (i+1) + "个数字");
+
+                    //判断是否为数字并且大于0，不是重新输入
+                    while(parseInt(arr[i])<=0 || isNaN(arr[i])){
+                        arr[i] = prompt("你丫输错了，请输入第" + (i+1) + "个数字");
+                    }
+                }
+
+                //数组数字排序
+                arr.sort(function(n1,n2){
+                    return n1-n2;
+                });
+
+                //输出数组
+                document.getElementsByTagName("h1")[0].innerHTML = arr;
+            };
+
+
+        };
+    </script>
+</head>
+<body>
+<button>输入数字</button>
+<h1></h1>
+
+</body>
+</html>
