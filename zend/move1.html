@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>匀速运动</title>
+    <style>
+        #div1 {
+            width: 200px;
+            height: 200px;
+            background: red;
+            position: absolute;
+            left: 1000px;
+        }
+        #xian {
+            position: absolute;
+            left: 500px;
+            height: 600px;
+            width: 1px;
+            background: black;
+        }
+        #xian1 {
+            position: absolute;
+            left: 300px;
+            height: 600px;
+            width: 1px;
+            background: black;
+        }
+        #div2 {
+            width: 200px;
+            height: 30px;
+            background: blue;
+            position: absolute;
+            bottom: 200px;
+            left: -200px;
+        }
+        #div2 span {
+            display: block;
+            font-weight: bold;
+            width: 40px;
+            height: 30px;
+            background: yellow;
+            position: absolute;
+            left: 200px;
+        }
+        #div3 {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            right: 100px;
+            bottom: 200px;
+            background: orangered;
+            opacity: .3;
+            filter : alpha(opacity=30);
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var btn = document.getElementsByTagName("button");
+            btn[0].onclick = function(){
+                move(300);
+            };
+            btn[1].onclick = function(){
+                move(500);
+            };
+            var div = document.getElementById("div2");
+            div.onmouseover = function(){
+                overmove(0);
+            };
+            div.onmouseout = function(){
+                overmove(-200);
+            };
+
+            var div3 = document.getElementById("div3");
+            div3.onmouseover = function(){
+                alpha(100)
+            };
+            div3.onmouseout = function(){
+                alpha(30)
+            };
+        };
+
+        var timer = null;
+        function  move(endl){
+            var odiv = document.getElementById("div1");
+            var speed = 10;
+            if(odiv.offsetLeft < endl ){
+                speed = 10;
+            } else {
+                speed = -10;
+            }
+            clearInterval(timer);
+            timer = setInterval(function(){
+                if(Math.abs(odiv.offsetLeft - endl) <= Math.abs(speed) ){
+                    clearInterval(timer);
+                    odiv.style.left = endl + "px";
+                } else {
+                    odiv.style.left = odiv.offsetLeft + speed + "px";
+                }
+            },30);
+        }
+
+        var otime = null;
+        function overmove(endl){
+            var div = document.getElementById("div2");
+
+            var speed = 0;
+            if(div.offsetLeft < endl){
+                speed = 15;  //向右
+            } else {
+                speed = -15; //向左
+            }
+
+            clearInterval(otime);
+            otime = setInterval(function(){
+                if(Math.abs(div.offsetLeft - endl) <= Math.abs(speed)){
+                    clearInterval(otime);
+                    div.style.left = endl + "px";
+                } else {
+                    div.style.left = div.offsetLeft + speed + "px";
+                }
+            },30);
+        }
+
+        var atime = null;
+        var opa = 30;
+        function alpha(end){
+            var speed = 0;
+
+            if(opa<end){
+                speed = 10;
+            } else {
+                speed = -10;
+            }
+
+            var div3 = document.getElementById("div3");
+
+            clearInterval(atime);
+            atime = setInterval(function(){
+                if(opa == end){
+                    clearInterval(atime);
+                } else {
+                    opa += speed;
+                    div3.style.opacity = opa/100;
+                    div3.style.filter = "alpha(opacity:"+ opa +")";
+                }
+            },30);
+        }
+
+    </script>
+</head>
+<body>
+<button>move300</button>
+<button>move500</button>
+<div id="div1"></div>
+<div id="xian1"></div>
+<div id="xian"></div>
+<div id="div2">
+    <span>分享</span>
+</div>
+<div id="div3"></div>
+</body>
+</html>
