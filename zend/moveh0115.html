@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>缓冲运动</title>
+    <style>
+        #div1 {
+            width: 200px;
+            height: 200px;
+            background: red;
+            position: absolute;
+            left: 10px;
+        }
+        #xian {
+            position: absolute;
+            left: 800px;
+            height: 600px;
+            width: 1px;
+            background: black;
+        }
+        #xian1 {
+            position: absolute;
+            left: 600px;
+            height: 600px;
+            width: 1px;
+            background: black;
+        }
+        #div2 {
+            width: 100px;
+            height: 150px;
+            background: red;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        #div3 {
+            width: 100px;
+            height: 150px;
+            background: red;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        body {
+            height: 3000px;
+        }
+    </style>
+    <script>
+        var timer = null;
+        function move(end){
+            var div = document.getElementById("div1");
+            clearInterval(timer);
+            timer = setInterval(function(){
+                var speed = (end - div.offsetLeft)/7;
+                speed= speed>0?Math.ceil(speed):Math.floor(speed);
+
+                div.style.left = div.offsetLeft + speed + "px";
+            },30);
+        }
+
+        window.onload = function(){
+            var btn = document.getElementsByTagName("button");
+            //var div = document.getElementById("div1");
+            btn[0].onclick = function(){
+                move(600);
+            };
+            btn[1].onclick = function(){
+                move(800)
+            };
+        };
+        window.onscroll = function(){
+            var odiv = document.getElementById("div2");
+            var divl = document.getElementById("div3");
+            //ie firefox chrome
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            //odiv.style.top = document.documentElement.clientHeight - odiv.offsetHeight + scrollTop + "px";
+            //scrollMoveA("div2",document.documentElement.clientHeight - odiv.offsetHeight + scrollTop);
+            //scrollMoveA("div3",Math.round((document.documentElement.clientHeight - divl.offsetHeight)/2 + scrollTop));
+            scrollMove(document.documentElement.clientHeight - odiv.offsetHeight + scrollTop);
+            scrollMoveLeft(Math.round((document.documentElement.clientHeight - divl.offsetHeight)/2 + scrollTop));
+        };
+
+
+        var otime = null;
+        function scrollMoveLeft(end){
+            var obj = document.getElementById("div3");
+
+            clearInterval(otime);
+            otime = setInterval(function(){
+                var speed = (end - obj.offsetTop)/4;
+                speed=speed>0?Math.ceil(speed):Math.floor(speed);
+
+                if(obj.offsetTop == end){
+                    clearInterval(otime);
+                } else {
+                    obj.style.top = obj.offsetTop + speed + "px";
+                }
+            },30);
+        }
+
+
+        var atime = null;
+        function scrollMove(end){
+            var odiv = document.getElementById("div2");
+
+            clearInterval(atime);
+            atime = setInterval(function(){
+                var speed = (end - odiv.offsetTop)/4;
+                speed=speed>0?Math.ceil(speed):Math.floor(speed);
+
+                if(odiv.offsetTop == end){
+                    clearInterval(atime);
+                } else {
+                    odiv.style.top = odiv.offsetTop + speed + "px";
+                }
+            },30);
+        }
+
+        /*
+        var gtime = null;
+        function scrollMoveA(id,end){
+            var obj = document.getElementById(id);
+
+            clearInterval(gtime);
+            gtime = setInterval(function(){
+                var speed = (end - obj.offsetTop)/4;
+                speed=speed>0?Math.ceil(speed):Math.floor(speed);
+
+                if(obj.offsetTop == end){
+                    clearInterval(gtime);
+                } else {
+                    obj.style.top = obj.offsetTop + speed + "px";
+                }
+            },30);
+        }
+        */
+    </script>
+</head>
+<body>
+<button>move600</button>
+<button>move800</button>
+<div id="div1"></div>
+<div id="xian1"></div>
+<div id="xian"></div>
+<div id = "div2"></div>
+<div id = "div3"></div>
+</body>
+</html>
