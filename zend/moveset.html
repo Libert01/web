@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>运动框架</title>
+    <style>
+       div {
+            width: 200px;
+            height: 200px;
+            float: left;
+            background: yellow;
+            margin: 10px;
+            border: 10px solid #000;
+           opacity: .3;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var div = document.getElementsByTagName("div");
+
+            div[0].onmouseover = function(){
+                startMove(this,"height",500);
+            };
+            div[0].onmouseout = function(){
+                startMove(this,"height",200);
+            };
+
+            div[1].onmouseover = function(){
+                startMove(this,"width",500);
+            };
+            div[1].onmouseout = function(){
+                startMove(this,"width",200);
+            };
+
+            div[2].onmouseover = function(){
+                startMove(this,"borderWidth",50);
+            };
+            div[2].onmouseout = function(){
+                startMove(this,"borderWidth",10);
+            };
+
+            div[3].onmouseover = function(){
+                startMove(this,"opacity",100);
+            };
+            div[3].onmouseout = function(){
+                startMove(this,"opacity",30);
+            };
+        };
+        //获取非行间样式     内联、外联
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            } else {
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+
+        function startMove(obj,attr,end){
+            clearInterval(obj.timer);
+
+            obj.timer = setInterval(function(){
+                var objint = 0;
+                if(attr == "opacity"){
+                    objint = parseFloat(getStyle(obj,attr))*100;
+                } else {
+                    objint = parseInt(getStyle(obj,attr));
+                }
+
+                var speed = (end - objint )/6;
+                speed = speed>0 ? Math.ceil(speed): Math.floor(speed);
+
+                if(objint == end){
+                    clearInterval(obj.timer);
+                } else {
+                    if(attr == "opacity"){
+                        obj.style.opacity = (objint + speed)/100;
+                        obj.style.filter = "alpha(opacity:" + (objint + speed) + ")";
+                    } else {
+                        obj.style[attr] = objint + speed + "px";
+                    }
+                }
+            },30);
+        }
+    </script>
+</head>
+<body>
+<div> </div>
+<div></div>
+<div> </div>
+<div id="div4"></div>
+</body>
+</html>

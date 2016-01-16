@@ -11,18 +11,19 @@
                 var n = prompt("请输入数字n");
                 //判断数字n是否大于0，不是重新输入
                 while(parseInt(n)<=0 || isNaN(n)){
-                    n = prompt("你丫输错了，请输入数字n");
+                   n = prompt("你丫输错了，请输入数字n");
                 }
 
                 //弹出输入输入框
                 var arr = [];
                 for(var i=0;i<n; i++){
-                    arr[i] = prompt("请输入第" + (i+1) + "个数字");
+                    arr[i] = Math.round(prompt("请输入第" + (i+1) + "个数字"));
 
                     //判断是否为数字并且大于0，不是重新输入
                     while(parseInt(arr[i])<=0 || isNaN(arr[i])){
                         arr[i] = prompt("你丫输错了，请输入第" + (i+1) + "个数字");
                     }
+
                 }
 
                 //数组数字排序

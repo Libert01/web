@@ -10,6 +10,15 @@
             background: red;
             margin: 10px;
         }
+        p {
+            width: 200px;
+            height: 200px;
+            background: orangered;
+            float: left;
+            margin: 100px 10px;
+            opacity: .3;
+            filter: alpha(opacity:30)
+        }
     </style>
     <script>
         window.onload = function(){
@@ -20,6 +29,18 @@
                 };
                 odiv[i].onmouseout = function(){
                     move(this,200)
+                };
+            }
+
+            var opp = document.getElementsByTagName("p");
+            for(var j=0; j<opp.length; j++){
+                opp[j].alpha = 30;
+                opp[j].otime = null;
+                opp[j].onmouseover = function(){
+                    alphaChange(this,100)
+                };
+                opp[j].onmouseout = function(){
+                    alphaChange(this,30)
                 };
             }
         };
@@ -39,11 +60,32 @@
                 }
             },30);
         }
+
+        function alphaChange(obj,end){
+            clearInterval(obj.otime);
+
+            obj.otime = setInterval(function(){
+                var speed = (end - obj.alpha )/4;
+                speed = speed > 0 ? Math.ceil(speed): Math.floor(speed);
+
+                if(obj.alpha == end ){
+                    clearInterval(obj.otime);
+                } else {
+                    obj.alpha  += speed ;
+                    obj.style.opacity =  obj.alpha/100;
+                    obj.style.filter = "alpha(opacity:" +obj.alpha + ")";
+                }
+            },30);
+        }
     </script>
 </head>
 <body>
 <div></div>
 <div></div>
 <div></div>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
 </body>
 </html>
