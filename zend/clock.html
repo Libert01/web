@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: #111;;
+        }
+        .container {
+            width: 800px;
+            text-align: center;
+            margin: 0 auto;
+            padding-top: 200px;
+        }
+        h2 {
+            color: #fff;
+            padding: 0;
+        }
+        img {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+    </style>
+    <script>
+        //分秒小于10，加字符0
+        function check(i){
+            if(i<10){
+                return "0" + i;
+            }
+            return "" + i;
+        }
+
+        function imgs(id,inum){
+            var oid= document.getElementById(id),
+                 oimg = oid.getElementsByTagName("img");
+            for(var i=0; i<oimg.length; i++){
+                oimg[i].src = "images/" + inum.charAt(i) +".png";
+            }
+            if(id=="week"){
+                for(var j=0; j<oimg.length; j++){
+                    oimg[j].src = "images/" + inum +".png";
+                }
+            }
+        }
+
+        window.onload = function(){
+
+            function  clock(){
+                var odate = new Date(),
+                        iy = check(odate.getFullYear()),
+                        im = check(odate.getMonth()+1),
+                        id = check(odate.getDate()),
+                        iw = ["seven","one","two","three","four","five","six"],
+                        ih = check(odate.getHours()),
+                        imu = check(odate.getMinutes()),
+                        is = check(odate.getSeconds()),
+                        sw = iw[odate.getDay()];
+
+                imgs("year",iy);
+                imgs("month",im);
+                imgs("date",id);
+                imgs("week",sw);
+                imgs("hours",ih);
+                imgs("minutes",imu);
+                imgs("seconds",is);
+            }
+
+            setInterval(clock,1000);
+            clock();
+        };
+
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <img src="images/title.png" title="" alt="" />
+    <h2>
+        <span id="year">
+            <img src="images/0.png" title="" alt="" />
+            <img src="images/1.png" title="" alt="" />
+            <img src="images/0.png" title="" alt="" />
+            <img src="images/1.png" title="" alt="" />
+        </span>
+        <img src="images/year.png" title="" alt="" />
+
+        <span id="month">
+            <img src="images/0.png" title="" alt="" />
+            <img src="images/1.png" title="" alt="" />
+        </span>
+        <img src="images/month.png" title="" alt="" />
+
+        <span id="date">
+            <img src="images/0.png" title="" alt="" />
+            <img src="images/1.png" title="" alt="" />
+        </span>
+        <img src="images/seven.png" title="" alt="" />
+    </h2>
+    <h2>
+        <span id="hours">
+            <img src="images/0.png" title="" alt="" />
+            <img src="images/1.png" title="" alt="" />
+        </span>
+        <img src="images/sign.png" title="" alt="" />
+
+        <span id="minutes">
+            <img src="images/2.png" title="" alt="" />
+            <img src="images/3.png" title="" alt="" />
+        </span>
+        <img src="images/sign.png" title="" alt="" />
+
+        <span id="seconds">
+            <img src="images/4.png" title="" alt="" />
+            <img src="images/5.png" title="" alt="" />
+        </span>
+
+        <img src="images/week.png" title="" alt="" />
+        <span id="week">
+            <img src="images/two.png" title="" alt="" />
+        </span>
+
+    </h2>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #container {
+            width: 712px;
+            height: 108px;
+            background: #ccc;
+            margin: 200px auto 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        ul {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            top: 0;
+            list-style-type: none;
+        }
+        ul li {
+            float: left;
+        }
+        img {
+            border: 0;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var odiv = document.getElementById("container");
+            var oul = odiv.getElementsByTagName("ul")[0];
+            var oli = oul.getElementsByTagName("li");
+
+            oul.innerHTML += oul.innerHTML;
+            oul.style.width = oli[0].offsetWidth*oli.length + "px";
+
+            var speed = 2;
+            var itime = 30;
+           function move(){
+               var oleft = document.getElementById("left");
+               var oright = document.getElementById("right");
+
+               oleft.onclick = function(){
+                   return speed = -2;
+               };
+               oright.onclick = function(){
+                   return speed = 2;
+               };
+
+               var oslow = document.getElementById("slow");
+               var ofast = document.getElementById("fast");
+               oslow.onclick = function(){
+                   return itime = 60;
+               };
+               ofast.onclick = function(){
+                   return itime = 10;
+               };
+
+                oul.style.left = oul.offsetLeft + speed +"px";
+                document.getElementById("text").value = oul.offsetLeft + "px";
+                if(oul.offsetLeft < -oul.offsetWidth/2 ){
+                    oul.style.left = 0;
+                }
+               if(oul.offsetLeft>0){
+                   oul.style.left = -oul.offsetWidth/2 + "px";
+               }
+            }
+            var otime =  setInterval(move,itime);
+            //鼠标经过停止移动
+            oul.onmouseover = function(){
+                clearInterval(otime);
+            };
+            //鼠标移出继续移动
+            oul.onmouseout = function(){
+                otime = setInterval(move,itime)
+            };
+
+            document.getElementById("text").value = oul.offsetLeft;
+        }
+    </script>
+</head>
+<body>
+<label for="text"></label>
+<input type="text" id="text" />
+<input type="button" id= "left" value="left" />
+<input type="button" id= "right" value="right" />
+<input type="button" id= "slow" value="slow" />
+<input type="button" id= "fast" value="fast" />
+<div id="container">
+    <ul>
+        <li><img src="images/1.jpg" /> </li>
+        <li><img src="images/2.jpg" /> </li>
+        <li><img src="images/3.jpg" /> </li>
+        <li><img src="images/4.jpg" /> </li>
+    </ul>
+</div>
+</body>
+</html>
