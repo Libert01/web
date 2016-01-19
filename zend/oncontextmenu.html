@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标右键事件</title>
+    <style>
+        ul {
+            width: 150px;
+            box-shadow: 3px  3px 8px rgba(0 ,0 ,0 , .3);
+            padding: 10px 0;
+            display: none;
+            position: absolute;
+        }
+        ul li {
+            list-style-type: none;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 20px;
+        }
+        ul li:hover {
+            color: #fff;
+            background: cornflowerblue;
+        }
+    </style>
+    <script>
+        document.oncontextmenu =function(ev){
+            var oEvent = ev || event;
+            var oul = document.getElementsByTagName("ul")[0];
+
+            oul.style["display"] = "block";
+            oul.style.left = oEvent.clientX + "px";
+            oul.style.top = oEvent.clientY + "px";
+
+            return false;
+        };
+        document.onclick = function () {
+            var oul = document.getElementsByTagName("ul")[0];
+            oul.style["display"] = "none";
+        }
+    </script>
+</head>
+<body>
+<h2>鼠标右键的自定义菜单,点击左键掩藏</h2>
+<ul>
+    <li>我的鼠标右键</li>
+    <li>事件冒泡</li>
+    <li>事件捕获</li>
+    <li>事件绑定</li>
+    <li>键盘事件</li>
+    <li>默认事件</li>
+</ul>
+</body>
+</html>
