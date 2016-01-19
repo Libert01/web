@@ -1,0 +1,137 @@
+body {
+    background: #666;
+}
+ul {
+    padding: 0; margin: 0; }
+li {
+    list-style: none; }
+img {
+    border: 0; }
+
+#playBox {
+    width: 400px;
+    height: 430px;
+    margin: 50px auto 0;
+    background: #999;
+    font: 12px Arial;
+}
+.bigPic {
+    width: 400px;
+    height: 320px;
+    overflow: hidden;
+    background: #222;
+    position: relative;
+}
+.bigPic li {
+    width: 400px;
+    height: 320px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: url(images/loading.gif) no-repeat center center;
+}
+.prev {
+    width: 60px;
+    height: 60px;
+    background: url(images/btn.gif) no-repeat;
+    position: absolute;
+    top: 130px;
+    left: 10px;
+    z-index: 3001;
+//display: none;
+    filter: alpha(opacity:0);
+    opacity: 0;
+    cursor: pointer;
+}
+.next {
+    width: 60px;
+    height: 60px;
+    background: url(images/btn.gif) no-repeat 0 -60px;
+    position: absolute;
+    top: 130px;
+    right: 10px;
+    z-index: 3001;
+//display: none;
+    filter: alpha(opacity:0);
+    opacity: 0;
+    cursor: pointer;
+}
+.mark_left {
+    width: 200px;
+    height: 320px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: red;
+    filter: alpha(opacity:0);
+    opacity: 0;
+    z-index:3000;
+}
+.mark_right {
+    width: 200px;
+    height: 320px;
+    position: absolute;
+    left: 200px;
+    top: 0;
+    background: green;
+    filter: alpha(opacity:0);
+    opacity: 0;
+    z-index:3000;
+}
+.text {
+    position: absolute;
+    left: 10px;
+    bottom: 4px;
+    z-index: 3000;
+    color: #ccc;
+}
+.length {
+    position: absolute;
+    right: 10px;
+    bottom: 4px;
+    z-index: 3000;
+    color: #ccc;
+}
+.bg {
+    width: 400px;
+    height: 25px;
+    background: #000;
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    position: absolute;
+    z-index: 2999;
+    bottom: 0;
+    left: 0;
+}
+
+.smallPic {
+    width: 380px;
+    height: 94px;
+    position: relative;
+    top: 8px;
+    left: 10px;
+    overflow: hidden;
+}
+.smallPic  ul {
+    width: 390px;
+    height: 94px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.smallPic li {
+    width: 120px;
+    height: 94px;
+    float: left;
+    padding-right: 10px;
+    background: url(images/loading.gif) no-repeat center center;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+.smallPic img {
+    width: 120px;
+    height: 94px;
+}

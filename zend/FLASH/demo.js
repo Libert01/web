@@ -43,8 +43,8 @@ function startMove(obj,attr,end){  //运动框架搭建
         }
     },30);
 }
-
-function  cheight(){
+/*
+function  changeh(){
         bli[now].style["zIndex"] = nzindex++;
         bli[now].style["height"] = 0;
         startMove(bli[now],"height",320);
@@ -54,7 +54,7 @@ function  cheight(){
         }
         startMove(this,"opacity",100)
 }
-
+*/
 window.onload = function(){
 
     var odiv = document.getElementById("playBox");
@@ -87,27 +87,70 @@ window.onload = function(){
 
     var nzindex = 2;
     var now = 0;
+
+    var smallUl = smallDiv.getElementsByTagName("ul")[0];
+    smallUl.style["width"] = sli[0].offsetWidth * sli.length + "px";
+
+    function chang(){   //高度运动
+        for(var i=0; i<sli.length; i++){
+            startMove(sli[i],"opacity",50);
+        }
+        startMove(sli[now],"opacity",100);
+
+        bli[now].style["zIndex"] = nzindex++;
+        bli[now].style["height"] = 0;
+        startMove(bli[now],"height",320);
+
+        if(now== 0){
+            startMove(smallUl,"left",0);
+           // now = sli.length-1;
+        } else if (now==sli.length-1) {
+            startMove(smallUl,"left",-(now-2)*sli[0].offsetWidth);
+           // now = 0;
+        } else {
+            startMove(smallUl,"left",-(now-1)*sli[0].offsetWidth);
+        }
+    }
     for(var i=0 ; i<sli.length; i++){
         sli[i].index = i;
         sli[i].onclick = function(){
             if(this.index == now) {
                 return ;
             }
-
             now = this.index;
-            cheight();
-
-        sli[now].onmouseover = function(){
+            chang();
+        };
+        sli[i].onmouseover = function(){
             startMove(this,"opacity",100);
         };
-        sli[now].onmouseout = function(){
+        sli[i].onmouseout = function(){
             if(this.index != now){
                 startMove(this,"opacity",50);
             }
         };
+    }
+    //prev next
+    prevbtn.onclick = function(){
+        now--;
+        if(now == -1){
+            now = bli.length-1;
+        }
+        chang();
     };
 
-    //prev next
+    nextbtn.onclick = function(){
+        now++;
+        if(now == bli.length){
+            now = 0;
+        }
+        chang();
+    };
 
+    var timer = setInterval( nextbtn.onclick , 2000 );
+    odiv.onmouseover = function(){
+        clearInterval(timer);
+    };
+    odiv.onmouseout = function(){
+        timer = setInterval( nextbtn.onclick , 2000 );
     }
 };
