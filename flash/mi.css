@@ -1,0 +1,99 @@
+/* reset */
+body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, th, td, p, blockquote, pre, form, fieldset, legend, input, button, textarea, hr {
+    margin: 0;
+    padding: 0
+}
+
+body, button, input, select, textarea {
+    font: 12px/1.5 "宋体", arial, verdana, sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+li {
+    list-style: none;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+button, input, select, textarea {
+    font-size: 100%;
+}
+
+hr {
+    border: none;
+    height: 1px;
+}
+
+/* menu */
+#picbox {
+    width: 1226px;
+    height: 460px;
+    margin: 50px auto;
+    background: lightseagreen;
+    position: relative;
+    overflow: hidden;
+}
+.pic {
+    height: 460px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.pic ul li {
+    float: left;
+}
+
+.prev {
+    width: 40px;
+    height: 70px;
+    background: url(images/slides.png) no-repeat -84px 0;
+    position: absolute;
+    left: 0;
+    top: 185px;
+}
+.prev:hover {
+    background: url(images/slides.png) no-repeat;
+}
+
+.next {
+    width: 40px;
+    height: 70px;
+    background: url(images/slides.png) no-repeat -125px 0;;
+    position: absolute;
+    right: 0;
+    top: 185px;
+}
+.next:hover {
+    background: url(images/slides.png) no-repeat -43px 0;;
+}
+
+.circle {
+    position: absolute;
+    width: 100px;
+    left: 550px;
+    bottom: 10px;
+    z-index: 10;
+}
+.circle ul li {
+    width: 8px;
+    height: 8px;
+    margin: 3px;
+    border-radius: 8px;
+    border: 2px solid  #333;
+    float: left;
+    cursor: pointer;
+}
+.circle ul li:hover,
+.active {
+    background: #ddd;
+}
