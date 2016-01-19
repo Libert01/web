@@ -99,7 +99,16 @@ window.onload = function(){
             now = 0;
         }
         moveL();
-    }
+    };
+
+    var timer = setInterval(next.onclick , 5000);
+
+    oBox.onmouseover = function(){
+        clearInterval(timer);
+    };
+    oBox.onmouseout = function(){
+        timer = setInterval(next.onclick , 5000);
+    };
 
 };
 
