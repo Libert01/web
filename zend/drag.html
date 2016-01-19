@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js鼠标拖拽</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+    <script>
+        onload = function(){
+            var odiv = document.getElementsByTagName("div")[0];
+            var disx = 0;
+            var disy = 0;
+
+            odiv.onmousedown = function (ev){
+                var oEvent = ev || event;
+                disx = oEvent.clientX - odiv.offsetLeft;
+                disy = oEvent.clientY - odiv.offsetTop;
+
+                odiv.onmousemove = function(ev){
+                    var oEvent = ev || event;
+
+                    var l = oEvent.clientX - disx;
+                    var t = oEvent.clientY - disy;
+
+                    if(l<0) {  //左右移出处理
+                        l = 0;
+                    } else if(l>document.documentElement.clientWidth - odiv.offsetWidth){
+                        l = document.documentElement.clientWidth - odiv.offsetWidth;
+                    }
+
+                    if(t<0) { //上下移出处理
+                        t = 0;
+                    } else if (t>document.documentElement.clientHeight - odiv.offsetHeight) {
+                        t = document.documentElement.clientHeight - odiv.offsetHeight;
+                    }
+
+                    odiv.style.left = l + "px";
+                    odiv.style.top = t + "px";
+                };
+
+                odiv.onmouseup = function(){
+                    odiv.onmousemove = null;
+                    odiv.onmouseup = null;
+                };
+
+                return false;
+            };
+        }
+    </script>
+</head>
+<body>
+<div></div>
+
+</body>
+</html>
