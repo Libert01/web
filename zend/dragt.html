@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽吸附</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        #parent {
+            width: 800px;
+            height: 500px;
+            background: #ccc;
+        }
+        #child {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+    <script>
+        onload = function(){
+            var opa = document.getElementById("parent");
+            var och = document.getElementById("child");
+
+            var disx = 0;
+            var disy = 0;
+
+            och.onmousedown = function(ev){
+                var oEvent = ev || event;
+                disx = oEvent.clientX - och.offsetLeft ;
+                disy = oEvent.clientY - och.offsetTop;
+
+                och.onmousemove = function(ev){
+                    var oEvent = ev || event;
+
+                    var l = oEvent.clientX - disx;
+                    var t = oEvent.clientY -disy;
+
+                    if(l<20){ //吸附
+                        l =0;
+                    } else if(l>opa.offsetWidth - och.offsetWidth-20){
+                        l = opa.offsetWidth - och.offsetWidth;
+                    }
+
+                    if(t<20){
+                        t = 0;
+                    } else if(t>opa.offsetHeight - och.offsetHeight -20){
+                        t = opa.offsetHeight - och.offsetHeight;
+                    }
+                    och.style.left = l + "px";
+                    och.style.top = t + "px";
+                };
+
+                och.onmouseup = function(){
+                    och.onmousemove = null;
+                    och.onmouseup = null;
+                };
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="parent">
+    <div id="child"></div>
+</div>
+</body>
+</html>
