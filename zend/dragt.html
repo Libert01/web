@@ -33,7 +33,7 @@
                 disx = oEvent.clientX - och.offsetLeft ;
                 disy = oEvent.clientY - och.offsetTop;
 
-                document.onmousemove = function(ev){
+                function mousemove(ev){  //mosemove函数调用
                     var oEvent = ev || event;
 
                     var l = oEvent.clientX - disx;
@@ -52,7 +52,28 @@
                     }
                     och.style.left = l + "px";
                     och.style.top = t + "px";
-                };
+                }
+
+                document.onmousemove = mousemove;   /* function(ev){
+                    var oEvent = ev || event;
+
+                    var l = oEvent.clientX - disx;
+                    var t = oEvent.clientY -disy;
+
+                    if(l<20){ //吸附
+                        l =0;
+                    } else if(l>opa.offsetWidth - och.offsetWidth-20){
+                        l = opa.offsetWidth - och.offsetWidth;
+                    }
+
+                    if(t<20){
+                        t = 0;
+                    } else if(t>opa.offsetHeight - och.offsetHeight -20){
+                        t = opa.offsetHeight - och.offsetHeight;
+                    }
+                    och.style.left = l + "px";
+                    och.style.top = t + "px";
+                }; */
 
                 document.onmouseup = function(){
                     document.onmousemove = null;

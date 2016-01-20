@@ -22,8 +22,30 @@
                 disx = oEvent.clientX - odiv.offsetLeft;
                 disy = oEvent.clientY - odiv.offsetTop;
 
+                function mousemove(ev){  //onmousemove调用
+                    var oEvent = ev || event;
+
+                    var l = oEvent.clientX - disx;
+                    var t = oEvent.clientY - disy;
+
+                    if(l<0) {  //左右移出处理
+                        l = 0;
+                    } else if(l>document.documentElement.clientWidth - odiv.offsetWidth){
+                        l = document.documentElement.clientWidth - odiv.offsetWidth;
+                    }
+
+                    if(t<0) { //上下移出处理
+                        t = 0;
+                    } else if (t>document.documentElement.clientHeight - odiv.offsetHeight) {
+                        t = document.documentElement.clientHeight - odiv.offsetHeight;
+                    }
+
+                    odiv.style.left = l + "px";
+                    odiv.style.top = t + "px";
+                }
+
                 if(odiv.setCapture){
-                    odiv.onmousemove = function(ev){
+                    odiv.onmousemove = mousemove;   /*function(ev){
                         var oEvent = ev || event;
 
                         var l = oEvent.clientX - disx;
@@ -43,7 +65,7 @@
 
                         odiv.style.left = l + "px";
                         odiv.style.top = t + "px";
-                    };
+                    }; */
 
                     odiv.onmouseup = function(){
                         odiv.onmousemove = null;
@@ -54,7 +76,7 @@
 
                 } else {
 
-                    document.onmousemove = function(ev){
+                    document.onmousemove = mousemove;  /*function(ev){
                         var oEvent = ev || event;
 
                         var l = oEvent.clientX - disx;
@@ -74,7 +96,7 @@
 
                         odiv.style.left = l + "px";
                         odiv.style.top = t + "px";
-                    };
+                    }; */
 
                     document.onmouseup = function(){
                         document.onmousemove = null;
