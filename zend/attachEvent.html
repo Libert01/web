@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件绑定</title>
+    <script>
+        //事件绑定通用函数构建
+        function myEvent(obj,ev,fn){
+            if(obj.attachEvent){
+                //attachEvent("onclick",function(){} )           ie
+                obj.attachEvent("on"+ev,fn);
+            } else {
+                //addEventListener("click",function(){},false)     ff chrome
+                obj.addEventListener(ev,fn,false);
+            }
+        }
+        onload = function(){
+            var btn = document.getElementsByTagName("button")[0];
+
+            myEvent(btn,"click",function(){
+                alert("attachEvent1111");
+            });
+            myEvent(btn,"click",function(){
+                alert("attachEvent2222");
+            });
+        }
+    </script>
+</head>
+<body>
+<button>button</button>
+</body>
+</html>
