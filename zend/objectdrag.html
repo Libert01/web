@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象拖拽</title>
+    <style>
+        #div {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: yellow;
+        }
+    </style>
+    <script>
+        //面向过程写法
+        /*
+        onload = function(){
+            var odiv = document.getElementById("div");
+
+            var disx = 0;
+            var disy = 0;
+
+            odiv.onmousedown = function(ev){
+                var oEvent = ev || event;
+
+                disx = oEvent.clientX - odiv.offsetLeft;
+                disy = oEvent.clientY - odiv.offsetTop;
+
+                document.onmousemove = function (ev){
+                    var oEvent = ev || event;
+
+                    odiv.style.left = oEvent.clientX - disx + "px";
+                    odiv.style.top = oEvent.clientY - disy + "px";
+                };
+
+                document.onmouseup = function(){
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                };
+                return false;
+            };
+        }
+        */
+
+        //面向对象写法
+        onload = function(){
+            new Drag("div");
+        };
+        function Drag(id){
+            this.disx = 0;
+            this.disy = 0;
+            this.div = document.getElementById(id);
+
+            var _this = this;
+            this.div.onmousedown = function (ev){
+                _this.fnDown(ev);
+            }
+        }
+        Drag.prototype.fnDown = function(ev){
+            var oEvent = ev || event;
+            var _this = this;
+
+            this.disx = oEvent.clientX - _this.div.offsetLeft;
+            this.disy = oEvent.clientY - _this.div.offsetTop;
+
+            document.onmousemove = function(ev){
+                _this.fnMove(ev);
+            };
+            document.onmouseup = function(){
+                _this.fnUp();
+            }
+        };
+        Drag.prototype.fnMove = function(ev){
+            var oEvent = ev || event;
+
+            this.div.style.left = oEvent.clientX - this.disx + "px";
+            this.div.style.top = oEvent.clientY - this.disy + "px";
+        };
+        Drag.prototype.fnUp = function(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+
+    </script>
+</head>
+<body>
+<div id = "div"></div>
+</body>
+</html>
