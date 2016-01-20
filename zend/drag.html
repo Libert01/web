@@ -21,6 +21,7 @@
                 var oEvent = ev || event;
                 disx = oEvent.clientX - odiv.offsetLeft;
                 disy = oEvent.clientY - odiv.offsetTop;
+
                 if(odiv.setCapture){
                     odiv.onmousemove = function(ev){
                         var oEvent = ev || event;
@@ -50,7 +51,9 @@
                         odiv.releaseCapture();  //解除绑定
                     };
                     odiv.setCapture();  //事件捕获    IE6、7、8
+
                 } else {
+
                     document.onmousemove = function(ev){
                         var oEvent = ev || event;
 
