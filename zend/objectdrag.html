@@ -10,6 +10,13 @@
             height: 150px;
             background: yellow;
         }
+        #odiv {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: green;
+            top: 170px;
+        }
     </style>
     <script>
         //面向过程写法
@@ -44,7 +51,8 @@
 
         //面向对象写法
         onload = function(){
-            new Drag("div");
+            new Drag("div");    //四周不受限制 可随意移动
+            new LimitDrag("odiv");  //继承Drag  修改了LimitDrag.prototype.fnDown方法  四周限制在body内
         };
         function Drag(id){
             this.disx = 0;
@@ -79,11 +87,38 @@
         Drag.prototype.fnUp = function(){
             document.onmousemove = null;
             document.onmouseup = null;
-        }
+        };
 
+        function LimitDrag(id){   //call继承属性
+            Drag.call(this, id);
+        }
+        for(var fn in Drag.prototype){  //prototype 继承方法
+            LimitDrag.prototype[fn] = Drag.prototype[fn];
+        }
+        LimitDrag.prototype.fnMove = function(ev){
+            var oEvent = ev || event;
+
+            var l = oEvent.clientX - this.disx;
+            if(l<0){
+                l = 0;
+            } else if(l>document.documentElement.clientWidth - this.div.offsetWidth){
+                l = document.documentElement.clientWidth - this.div.offsetWidth;
+            }
+
+            var t = oEvent.clientY - this.disy;
+            if(t<0){
+                t = 0;
+            } else if(t>document.documentElement.clientHeight - this.div.offsetHeight) {
+                t = document.documentElement.clientHeight - this.div.offsetHeight;
+            }
+
+            this.div.style.left = l + "px";
+            this.div.style.top = t  + "px";
+        }
     </script>
 </head>
 <body>
 <div id = "div"></div>
+<div id = "odiv"></div>
 </body>
 </html>
