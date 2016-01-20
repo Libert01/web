@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>带虚框拖拽</title>
+    <style>
+        #div {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            background: red;
+        }
+        .box {
+            border: 1px dashed #333;
+            position: absolute;
+        }
+
+    </style>
+    <script>
+        onload = function(){
+            var odiv = document.getElementById("div");
+            var disx = 0, disy = 0;
+
+            odiv.onmousedown = function(ev){ //鼠标按下
+                var oEvent = ev || event;
+                disx = oEvent.clientX - odiv.offsetLeft;
+                disy = oEvent.clientY - odiv.offsetTop;
+
+                var box = document.createElement("div");   //创建带虚框div
+                box.className = "box";                     //添加class样式
+                box.style.width = odiv.offsetWidth - 2 + "px";        //
+                box.style.height = odiv.offsetHeight - 2 + "px";
+
+                box.style.left = odiv.offsetLeft + "px";
+                box.style.top = odiv.offsetTop + "px";
+
+                document.body.appendChild(box);      //添加到body
+
+                document.onmousemove = function(ev){   //鼠标移动
+                    var oEvent = ev || event;
+                    var l = oEvent.clientX - disx;
+                    var t = oEvent.clientY - disy;
+
+                    if(l<0){
+                        l = 0;
+                    } else if(l>document.documentElement.clientWidth - odiv.offsetWidth){
+                        l = document.documentElement.clientWidth - odiv.offsetWidth;
+                    }
+
+                    if(t<0){
+                        t = 0;
+                    } else if(l>document.documentElement.clientWidth - odiv.offsetWidth){
+                        l = document.documentElement.clientHeight - odiv.offsetHeight;
+                    }
+
+                    box.style.left = l + "px";
+                    box.style.top = t + "px";
+
+                };
+
+                document.onmouseup = function(){   //鼠标松开
+                    odiv.style.left = box.offsetLeft + "px";
+                    odiv.style.top = box.offsetTop + "px";
+
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                    document.body.removeChild(box);
+                };
+
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div"></div>
+</body>
+</html>
