@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+    <style>
+            /*
+            A　　0X65 　U 　　0X85
+            B　　0X66　 V　　 0X86
+            C　　0X67　 W　　 0X87
+            D　　0X68　 X 　　0X88
+            E　　0X69　 Y　　 0X89
+            F　　0X70　 Z　　 0X90
+            G　　0X71　 0　　 0X48
+            H　　0X72　 1　　 0X49
+            I　　0X73　 2　　 0X50
+            J　　0X74　 3 　　0X51
+            K　　0X75　 4 　　0X52
+            L　　0X76　 5 　　0X53
+            M　　0X77　 6　　 0X54
+            N　　0X78 　7 　　0X55
+            O　　0X79 　8 　　0X56
+            P　　0X80 　9 　　0X57
+
+            Q　　0X81　ESC　　0X1B
+            R　　0X82　CTRL 　0X11
+            S　　0X83　SHIFT　0X10
+            T　　0X84　ENTER　0XD
+
+            keycode 8 = BackSpace
+            keycode 9 = Tab Tab
+            keycode 12 = Clear
+            keycode 13 = Enter
+            keycode 27 = Escape Escape
+            keycode 32 = space space
+            keycode 33 = Prior
+            keycode 34 = Next
+            keycode 35 = End
+            keycode 36 = Home
+
+            keycode 37 = Left      左
+            keycode 38 = Up        上
+            keycode 39 = Right     右
+            keycode 40 = Down      下
+
+            如果要使用组合键，则可以利用event.ctrlKey，event.shiftKey，event .altKey判断
+            是否按下了ctrl键、shift键以及alt键
+            */
+        #con {
+            position: absolute;
+            border: 1px solid orangered;
+        }
+    </style>
+    <script>
+
+        document.onkeydown = function (ev) {
+            var oEvent = ev || event;
+            var odiv = document.getElementById("con");
+
+            //键盘上下左右移动odiv
+           if(oEvent.keyCode == 37){
+               odiv.style.left = odiv.offsetLeft - 20 + "px";
+           } else if( oEvent.keyCode == 39 ){
+               odiv.style.left = odiv.offsetLeft + 20 + "px";
+           } else if( oEvent.keyCode == 38 ){
+               odiv.style.top = odiv.offsetTop - 20 + "px";
+           } else if( oEvent.keyCode == 40 ){
+               odiv.style.top = odiv.offsetTop + 20 + "px";
+           }else {
+
+           }
+        };
+
+        onload = function(){
+            var text = document.getElementById("text");
+            var btn = document.getElementById("btn");
+            var con = document.getElementById("con");
+
+            btn.onclick = function(){
+                con.value += text.value + "\n";
+                text.value = "";
+            };
+
+            text.onkeydown = function(ev){
+                var oEvent = ev || event;
+                if(oEvent.keyCode == 13 && oEvent.shiftKey){  //shift + enter 提交
+                    con.value += text.value + "\n";
+                    text.value = "";
+                }
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+<label for="text"></label>
+<input type="text" id="text">
+<input type="button" id="btn" value="提交" />
+<br />
+<label for="con"></label>
+<textarea id="con" cols="60" rows="15">
+
+</textarea>
+</body>
+</html>

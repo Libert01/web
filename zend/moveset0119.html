@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>json参数运动框架</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+    <script>
+        function getStyle(obj,name){    //获取内部、外部样式 属性值
+            if(obj.currentStyle){
+                return  obj.currentStyle[name];
+            } else {
+                return  getComputedStyle(obj,null)[name];
+            }
+        }
+        function startMove(obj, json, fn){
+            clearInterval(obj.timer);
+
+            obj.timer = setInterval(function () {
+                var bStop = true;
+                for( var attr in json){
+                    var objval = 0;
+                    if(attr == "opacity"){    //获取运动前的属性值
+                        objval = Math.round(parseFloat(getStyle(obj, attr))*100);
+                    } else {
+                        objval = parseInt(getStyle(obj,attr));
+                    }
+
+                    var speed = (json[attr] - objval)/6;   //带缓冲速度
+                    speed = speed>0 ? Math.ceil(speed) : Math.floor(speed);   //>0  向上取整   <0 向下取整
+
+                    if(objval != json[attr]){
+                        bStop = false;
+                    }
+
+                    if(attr == "opacity"){
+                        obj.style[attr] =  (objval + speed)/100;
+                        obj.style["filter"] = "alpha(opacity:" + (objval + speed) +")";
+                    } else {
+                        obj.style[attr] = objval + speed + "px";
+                    }
+                }
+                if(bStop){
+                    clearInterval(obj.timer);
+                    if(fn) fn();
+                }
+            },30);
+        }
+/*
+        function startMo(obj, json, fnEnd)
+        {
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function (){
+                var bStop=true;		//假设：所有值都已经到了
+
+                for(var attr in json)
+                {
+                    var cur=0;
+
+                    if(attr=='opacity')
+                    {
+                        cur=Math.round(parseFloat(getStyle(obj, attr))*100);
+                    }
+                    else
+                    {
+                        cur=parseInt(getStyle(obj, attr));
+                    }
+
+                    var speed=(json[attr]-cur)/6;
+                    speed=speed>0?Math.ceil(speed):Math.floor(speed);
+
+                    if(cur!=json[attr])
+                        bStop=false;
+
+                    if(attr=='opacity')
+                    {
+                        obj.style.filter='alpha(opacity:'+(cur+speed)+')';
+                        obj.style.opacity=(cur+speed)/100;
+                    }
+                    else
+                    {
+                        obj.style[attr]=cur+speed+'px';
+                    }
+                }
+
+                if(bStop)
+                {
+                    clearInterval(obj.timer);
+
+                    if(fnEnd)fnEnd();
+                }
+            }, 30);
+        }
+*/
+        /*
+        function startMove(obj,attr,end,fn){  //运动框架搭建
+            clearInterval(obj.timer);
+
+            obj.timer = setInterval(function () {
+                var objval = 0;
+                if(attr == "opacity"){    //获取运动前的属性值
+                    objval = Math.round(parseFloat(getStyle(obj,attr))*100);
+                } else {
+                    objval = parseInt(getStyle(obj,attr));
+                }
+
+                var speed = (end - objval)/6;   //带缓冲速度
+                speed = speed>0 ? Math.ceil(speed) : Math.floor(speed);   //>0  向上取整   <0 向下取整
+
+                if(objval == end){
+                    clearInterval(obj.timer);
+                    if(fn) fn();
+                } else {
+                    if(attr == "opacity"){
+                        obj.style[attr] =  (objval + speed)/100;
+                        obj.style["filter"] = "alpha(opacity:" + (objval + speed) +")";
+                    } else {
+                        obj.style[attr] = objval + speed + "px";
+                    }
+                }
+            },30);
+        }
+        */
+
+        window.onload = function(){
+            var odiv = document.getElementsByTagName("div")[0];
+            var btn = document.getElementsByTagName("button")[0];
+
+            btn.onclick = function(){
+                startMove(odiv,{width : 202,height: 400});
+            };
+        }
+    </script>
+</head>
+<body>
+<button>move</button>
+<div></div>
+</body>
+</html>
