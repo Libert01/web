@@ -31,7 +31,7 @@
             for(var i=0;i<_this.btn.length; i++){
                 _this.btn[i].index = i ;
                 _this.btn[i].onclick =function(){
-                    _this.fnclick(this);  //这鸟 this 指当前点击的按钮 _this.btn[i].onclick     当前点击按钮通过对象方法传递给fnclick函数
+                    _this.fnclick(this);  //这鸟 this 指当前点击的按钮 _this.btn[i].onclick  通过对象方法fnclick函数传递调用
                 };
             }
         }
