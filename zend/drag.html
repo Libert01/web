@@ -21,41 +21,73 @@
                 var oEvent = ev || event;
                 disx = oEvent.clientX - odiv.offsetLeft;
                 disy = oEvent.clientY - odiv.offsetTop;
+                if(odiv.setCapture){
+                    odiv.onmousemove = function(ev){
+                        var oEvent = ev || event;
 
-                odiv.onmousemove = function(ev){
-                    var oEvent = ev || event;
+                        var l = oEvent.clientX - disx;
+                        var t = oEvent.clientY - disy;
 
-                    var l = oEvent.clientX - disx;
-                    var t = oEvent.clientY - disy;
+                        if(l<0) {  //左右移出处理
+                            l = 0;
+                        } else if(l>document.documentElement.clientWidth - odiv.offsetWidth){
+                            l = document.documentElement.clientWidth - odiv.offsetWidth;
+                        }
 
-                    if(l<0) {  //左右移出处理
-                        l = 0;
-                    } else if(l>document.documentElement.clientWidth - odiv.offsetWidth){
-                        l = document.documentElement.clientWidth - odiv.offsetWidth;
-                    }
+                        if(t<0) { //上下移出处理
+                            t = 0;
+                        } else if (t>document.documentElement.clientHeight - odiv.offsetHeight) {
+                            t = document.documentElement.clientHeight - odiv.offsetHeight;
+                        }
 
-                    if(t<0) { //上下移出处理
-                        t = 0;
-                    } else if (t>document.documentElement.clientHeight - odiv.offsetHeight) {
-                        t = document.documentElement.clientHeight - odiv.offsetHeight;
-                    }
+                        odiv.style.left = l + "px";
+                        odiv.style.top = t + "px";
+                    };
 
-                    odiv.style.left = l + "px";
-                    odiv.style.top = t + "px";
-                };
+                    odiv.onmouseup = function(){
+                        odiv.onmousemove = null;
+                        odiv.onmouseup = null;
+                        odiv.releaseCapture();  //解除绑定
+                    };
+                    odiv.setCapture();  //事件捕获    IE6、7、8
+                } else {
+                    document.onmousemove = function(ev){
+                        var oEvent = ev || event;
 
-                odiv.onmouseup = function(){
-                    odiv.onmousemove = null;
-                    odiv.onmouseup = null;
-                };
+                        var l = oEvent.clientX - disx;
+                        var t = oEvent.clientY - disy;
 
-                return false;
+                        if(l<0) {  //左右移出处理
+                            l = 0;
+                        } else if(l>document.documentElement.clientWidth - odiv.offsetWidth){
+                            l = document.documentElement.clientWidth - odiv.offsetWidth;
+                        }
+
+                        if(t<0) { //上下移出处理
+                            t = 0;
+                        } else if (t>document.documentElement.clientHeight - odiv.offsetHeight) {
+                            t = document.documentElement.clientHeight - odiv.offsetHeight;
+                        }
+
+                        odiv.style.left = l + "px";
+                        odiv.style.top = t + "px";
+                    };
+
+                    document.onmouseup = function(){
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    };
+                    return false;  //ff  chrome
+                }
             };
         }
     </script>
 </head>
 <body>
-<div></div>
+怎样让拖拽不影响其它内容
+怎样让拖拽不影响其它内容<br />
+<div>怎样让拖拽不影响其它内容怎样让拖拽不影响其它内容</div>
+怎样让拖拽不影响其它内容
 
 </body>
 </html>

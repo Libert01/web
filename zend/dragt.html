@@ -33,7 +33,7 @@
                 disx = oEvent.clientX - och.offsetLeft ;
                 disy = oEvent.clientY - och.offsetTop;
 
-                och.onmousemove = function(ev){
+                document.onmousemove = function(ev){
                     var oEvent = ev || event;
 
                     var l = oEvent.clientX - disx;
@@ -54,9 +54,9 @@
                     och.style.top = t + "px";
                 };
 
-                och.onmouseup = function(){
-                    och.onmousemove = null;
-                    och.onmouseup = null;
+                document.onmouseup = function(){
+                    document.onmousemove = null;
+                    document.onmouseup = null;
                 };
                 return false;
             }
