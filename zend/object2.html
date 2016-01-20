@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡面向对象写法</title>
+    <style>
+        .active {
+            background: green;
+            color: #fff;
+            border: 1px solid green;
+        }
+        #content div {
+            width: 220px;
+            height: 200px;
+            border: 1px dotted #666;
+            display: none;
+            padding: 12px;
+        }
+    </style>
+    <script>
+        onload = function(){
+            new DivSwitch("content")
+        };
+
+        function DivSwitch(id){   // 对象属性
+            var _this = this;  //此处 this指向DivSwitch 对象
+            var odiv = document.getElementById(id);
+            _this.btn = odiv.getElementsByTagName("input");
+            _this.div = odiv.getElementsByTagName("div");
+
+            for(var i=0;i<_this.btn.length; i++){
+                _this.btn[i].index = i ;
+                _this.btn[i].onclick =function(){
+                    _this.fnclick(this);  //这鸟 this 指当前点击的按钮 _this.btn[i].onclick     当前点击按钮通过对象方法传递给fnclick函数
+                };
+            }
+        }
+
+        DivSwitch.prototype.fnclick = function (nbtn){  //对象方法
+            for(var i= 0;i<this.btn.length ; i++){
+                this.btn[i].className = "";
+                this.div[i].style.display = "none";
+            }
+            nbtn.className = "active";
+            this.div[nbtn.index].style.display = "block";
+        }
+    </script>
+</head>
+<body>
+<div id="content">
+    <input type="button" value="aaaa" class="active">
+    <input type="button" value="bbbb">
+    <input type="button" value="cccc">
+    <input type="button" value="dddd">
+    <div style="display: block">
+        <h2>aaaaaaaaaaaaaaaa</h2>
+    </div>
+    <div>
+        <h2>bbbbbbbbbbbbbbbb</h2>
+    </div>
+    <div>
+        <h2>cccccccccccccccc</h2>
+    </div>
+    <div>
+        <h2>dddddddddddddddd</h2>
+    </div>
+</div>
+</body>
+</html>

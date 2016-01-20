@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象</title>
+    <script>
+        function CreatePerson(name,qq){ //构造函数   加属性
+            //原料    调用函数时加 new 系统自带创建 this = new Object（）   并在结尾  return this给函数
+            //var obj = {};
+
+            //加工
+            this.name = name;
+            this.qq = qq;
+
+            //出厂
+            //return obj;
+        }
+        CreatePerson.prototype.showName = function(){   //原型  加方法  混合的原型构造函数
+            alert(this.name);
+        };
+        CreatePerson.prototype.showQQ = function(){
+            alert(this.qq);
+        };
+
+        var per = new CreatePerson("john",2555522);
+
+        per.showName();
+        per.showQQ();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
