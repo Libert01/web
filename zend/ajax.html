@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        //1 创建 ajax对象
+        var oAjax = null;
+        if(window.XMLHttpRequest){
+            oAjax =new XMLHttpRequest();
+        } else {
+            oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        //2连接服务器  open(方法，文件名，异步传输）
+        oAjax.open('get','index.php',true);
+
+        //3发送请求
+        oAjax.send();
+
+        //4接受返回
+        oAjax.onreadystatechange = function(){
+            /* oajax.readyState 浏览器和服务器进行到哪个步骤
+             0 未初始化   还没调用open（）方法
+             1 载入        已调用send（）方法  正在发送请求
+             2 载入完成    send（）方法完成，已收到全部响应内容
+             3解析         正在解析响应内容
+             4 完成         响应内容解析完成，可以在客服端调用了
+             */
+            if(oAjax.readyState == 4){  //解析完成
+                if(oAjax.status == 200){
+                    alert("成功:" + oAjax.responseText);
+                } else {
+                    alert('失败:' + oAjax.status);
+                }
+            }
+        };
+
+        //ajax封装
+        function ajax(url, fnSucc,fnFaild){
+            if(window.XMLHttpRequest){
+                var myAjax = new XMLHttpRequest();
+            } else {
+                myAjax = new ActiveXObject();
+            }
+
+            myAjax.open('get', url, true);
+
+            myAjax.send();
+
+            myAjax.onreadystatechange = function(){
+                if(myAjax.readyState == 4){
+                    if(myAjax.status == 200){
+                        fnSucc(myAjax.responseText);
+                    } else {
+                        if(fnFaild)
+                            fnFaild(myAjax.status);
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
